@@ -8,7 +8,7 @@ export interface Props {
 	color?: string;
 }
 
-const { href, icon, width, color } = Astro.props;
+const { href, icon, width, color, background1, background2 } = Astro.props;
 
 const _width = width ? width : "50px";
 const _color = color ? color : "black";
@@ -25,14 +25,13 @@ const _color = color ? color : "black";
 </div>
 
 
-<style define:vars={{color: _color}}>
+<style define:vars={{color: _color, background1, background2}}>
 	.social-icon {
 		color: black;
 		padding: 2px;
 	}
 	.icon-container {
 		border: transparent;
-		border-radius: 8px;
 	}
 	.icon-container:hover{
 		background: #485563;
