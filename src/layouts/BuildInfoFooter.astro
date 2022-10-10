@@ -1,0 +1,15 @@
+---
+import { execSync } from "child_process";
+
+const commit = execSync("git rev-parse --short HEAD", { encoding: "utf-8" });
+const date   = execSync(`git log --format=%B -n 1 ${commit}`, {encoding: "utf-8" }).split("--")[0];
+---
+
+<div>
+    <b>
+        <h1>Web built on {date} with commit <a href="https://github.com/elpekenin/astro-web">{commit}</a></h1>
+    </b>
+</div>
+
+<style>
+</style>

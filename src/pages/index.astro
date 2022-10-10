@@ -1,18 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SocialHeader from '../layouts/SocialHeader.astro'
+import BuildInfoFooter from "../layouts/BuildInfoFooter.astro";
+import Layout from "../layouts/Layout.astro";
+import SocialHeader from "../layouts/SocialHeader.astro"
 ---
 
 <Layout title="elpekenin - Desarrollador">
 	<main>
 		<SocialHeader />
+
+	<footer>
+		<BuildInfoFooter />
+	</footer>
 	</main>
 </Layout>
 
 <style>
 	main {
+	}
+	footer {
+		position: fixed;
+		width: 100%;
+		bottom: 0;
+		justify-content: center;
+		text-align: center;
 		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
 	}
 </style>
