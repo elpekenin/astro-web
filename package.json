@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "git add -A && git commit -m \"$(date +\"%d-%m-%Y--%H:%M\")\" && git push && astro build && scp -r dist elpekenin@elraspberrin:~/docker/main-web/dist/"
   },
   "dependencies": {
     "astro": "^1.4.6",

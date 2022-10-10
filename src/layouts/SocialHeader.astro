@@ -1,0 +1,42 @@
+---
+import SocialIcon from "../components/SocialIcon.astro";
+---
+
+<nav id="social-header">
+    <SocialIcon
+        icon='mdi:github'
+        color='Purple'
+        href='https://github.com/elpekenin'
+    />
+    <SocialIcon
+        icon='mdi:telegram'
+        color='Cyan'
+        href='https://t.me/elpekenin'
+    />
+    <SocialIcon
+        icon='mdi:discord'
+        color='Aqua'
+        href='https://discord.com/users/elpeke%C3%B1in#2234'
+    />
+    <SocialIcon
+        icon='mdi:twitter'
+        color='Aqua'
+        href='https://twitter.com/elpekenin_dev'
+    />
+    <SocialIcon
+        icon='mdi:gmail'
+        color='Crimson'
+        href='mailto:elpekenin@elpekenin.dev'
+    />
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        position: relative;
+    }
+    nav a {
+        position: absolute;
+        top: 50%;
+    }
+</style>

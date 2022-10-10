@@ -10,8 +10,8 @@ export interface Props {
 
 const { href, icon, width, color } = Astro.props;
 
-let   _width = width ? width : "50px";
-const _color = color ? color : "";
+const _width = width ? width : "50px";
+const _color = color ? color : "black";
 ---
 
 <div class="icon-container">
@@ -19,14 +19,14 @@ const _color = color ? color : "";
 		<Icon 
 			name={icon}
 			width={_width}
-			class="my-icon"
+			class="social-icon"
 		/>
 	</a>
 </div>
 
 
 <style define:vars={{color: _color}}>
-	.my-icon {
+	.social-icon {
 		color: black;
 		padding: 2px;
 	}
@@ -39,7 +39,7 @@ const _color = color ? color : "";
 		background: -webkit-linear-gradient(to right, #29323c, #485563);
 		background: linear-gradient(to right, #29323c, #485563);
 	}
-	.icon-container:hover .my-icon {
+	.icon-container:hover .social-icon {
 		color: var(--color);
 	}
 </style>
