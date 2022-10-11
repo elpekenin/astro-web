@@ -1,20 +1,28 @@
 ---
 export interface Props {
     title: string;
+    error?:  string;
 }
 
-const { title } = Astro.props;
+const { title, error } = Astro.props;
+
+let _fav_text = "";
+if (error !== "true") {
+    _fav_text = '\
+        <link rel="icon" type="image/ico" href="favicon-dark.ico/"  media="(prefers-color-scheme: no-preference)" /> \
+        <link rel="icon" type="image/ico" href="favicon-dark.ico/"  media="(prefers-color-scheme: light)" /> \
+        <link rel="icon" type="image/ico" href="favicon-light.ico/" media="(prefers-color-scheme: dark)" /> ';
+} else {
+    _fav_text = '<link rel="icon" type="image/ico" href="404.ico" />';
+}
+const fav_text = _fav_text; 
 ---
 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
+    <head set:html={fav_text}>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-
-        <link rel="icon" type="image/ico" href="favicon-dark.ico/"  media="(prefers-color-scheme: no-preference)" />
-        <link rel="icon" type="image/ico" href="favicon-dark.ico/"  media="(prefers-color-scheme: light)" />
-        <link rel="icon" type="image/ico" href="favicon-light.ico/" media="(prefers-color-scheme: dark)" />
 
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
