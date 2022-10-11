@@ -1,41 +1,41 @@
 ---
-import { Icon } from 'astro-icon'
+import { Icon } from "astro-icon"
 
 export interface Props {
-	color: string;
-	href: string;
-	icon: string;
-	width: string;
+    color: string;
+    href: string;
+    icon: string;
+    width: string;
 }
 
 const { color, href, icon, width } = Astro.props;
 ---
 
 <div>
-	<a href={href}>
-		<Icon 
-			class="social-icon"
-			name={icon}
-			width={width}
-		/>
-	</a>
+    <a href={href}>
+        <Icon 
+            class="social-icon"
+            name={icon}
+            width={width}
+        />
+    </a>
 </div>
 
 
 <style define:vars={{color}}>
-	div {
-		border-radius: 50%;
-	}
-	div:hover{
-		background: #C9D6FF;
-		background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
-		background: linear-gradient(to right, #E2E2E2, #C9D6FF);
-	}
-	div:hover .social-icon {
-		color: var(--color);
-	}
-	.social-icon {
-		color: black;
-		padding: calc(min(0.5vw, 8px));
-	}	
+    div {
+        border-radius: 50%;
+    }
+    div:hover{
+        background: #C9D6FF;
+        background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
+        background: linear-gradient(to right, #E2E2E2, #C9D6FF);
+    }
+    div:hover .social-icon {
+        color: var(--color);
+    }
+    .social-icon {
+        color: black;
+        padding: calc(min(0.5vw, 8px));
+    }    
 </style>
