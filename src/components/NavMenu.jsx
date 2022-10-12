@@ -2,8 +2,6 @@ import { Menu, Transition } from "@headlessui/react";
 import Icon from '@mdi/react';
 import { mdiHome, mdiPokemonGo } from '@mdi/js';
 
-let aClassName = (active) => `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer`;
-
 const NavMenu = () => {
   return (
     <div className="flex items-center px-4 py-3">
@@ -28,7 +26,7 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={aClassName(active)}
+                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                                 href="/pokemon-sites/index.html"
                             >
                             Páginas útiles
@@ -38,7 +36,7 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={aClassName(active)}
+                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                                 href="/pokemon-posts/index.html"
                             >
                             Mis posts
@@ -48,7 +46,7 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={aClassName(active)}
+                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                                 href="/40dex"
                             >
                             40dex
