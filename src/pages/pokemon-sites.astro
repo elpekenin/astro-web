@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+let urlHelper = (text: string) => { return ``};
+---
+
+<Layout title="elpekenin - Desarrollador">
+    <main>
+        <div class="text-palette-text">🌐 Dónde buscar info de PokemonGO</div><hr>
+
+        <ol class="py-3 px-5">
+            <li>Ver si una especie de Pokemon es buena en PvP <br>
+            - <a href="https://pvpoke.com/rankings/" target="_blank">https://pvpoke.com/rankings/</a> (tiene muchas herramientas para PvP, como simulador de combates) </li>
+
+            <li class="mt-10">Ver si los iv de tu Pokemon son buenos pa PvP <br>
+            - Calcy/Pokegenie/Alguna otra calculadora de IV en el móvil <br>
+            - <a href="https://www.stadiumgaming.gg/rank-checker" target="_blank">https://www.stadiumgaming.gg/rank-checker</a> (más completa pero más difícil de usar)</li>
+
+            <li class="mt-10">Consultar mejores counter para una raid <br>
+            - <a href="https://www.pokebattler.com/raids" target="_blank">https://www.pokebattler.com/raids</a> (complicada de aprender a usar pero muy útil)</li>
+
+            <li class="mt-10">Comprobar DPS/TDO (ver mejores Pokemon de cada tipo) <br>
+            - <a href="https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet" target="_blank">https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet</a></li> <br>
+
+            <li class="mt-5 list-none">⚠ Otra info se puede buscar en Reddit, Gamepress o alguna otra web</li>
+        </ol>
+    </main>
+</Layout>
+
+<style>
+    a {
+        text-decoration: underline;
+    }
+    main {
+        font-size: 35px;
+    }
+</style>
+

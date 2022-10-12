@@ -1,17 +1,19 @@
 import { defineConfig } from 'astro/config';
+import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-    server: {
-        host: true,
-        port: 5000
-    },
-    site: "https://elpekenin.dev",
-    trailingSlash: "always",
-    vite: {
-        ssr: {
-          external: ["svgo"],
-        },
-      },
+  integrations: [react(), tailwind()],
+  server: {
+    host: true,
+    port: 5000
+  },
+  site: "https://elpekenin.dev",
+  trailingSlash: "always",
+  vite: {
+    ssr: {
+      external: ["svgo"]
+    }
+  }
 });
-

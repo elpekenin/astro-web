@@ -6,13 +6,18 @@ import Layout from "../layouts/Layout.astro";
     <img src="/404.jpg" />
 </Layout>
 
-<style>
+<style is:global>
+    header {
+        display: none;
+    }
     img {
-        aspect-ratio:unset;
         height: 100%;
         left: 0;
         position: absolute;
         top: 0;
         width: 100%;
+    }
+    footer {
+        display: none;
     }
 </style>

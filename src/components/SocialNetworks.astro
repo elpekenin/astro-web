@@ -1,12 +1,13 @@
 ---
 import SocialIcon from "../components/SocialIcon.astro";
 
-const totalWidth   = 20;
-const elementCount = 6;
-const elementWidth = `${totalWidth/elementCount}vw`;
+// const totalWidth   = 15;
+// const elementCount = 6;
+// const elementWidth = `${totalWidth/elementCount}vw`;
+const elementWidth = "5vh";
 ---
 
-<div id="social-networks">
+<div class="socials">
     <SocialIcon
         color="#6e5494"
         href="https://github.com/elpekenin"
@@ -48,10 +49,13 @@ const elementWidth = `${totalWidth/elementCount}vw`;
 <style>
     div {
         display: flex;
-        justify-content: right;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
     }
     div a {
-        position: absolute;
-        top: 50%;
+        justify-content: right;
     }
 </style>

@@ -1,4 +1,8 @@
 ---
+import BuildInfo from "../components/BuildInfo.astro";
+import NavMenu from "../components/NavMenu.jsx"
+import SocialNetworks from "../components/SocialNetworks.astro";
+
 export interface Props {
     title: string;
     error?:  string;
@@ -6,16 +10,15 @@ export interface Props {
 
 const { title, error } = Astro.props;
 
-let _fav_text = "";
+let fav_text = "";
 if (error !== "true") {
-    _fav_text = '\
+    fav_text = '\
         <link rel="icon" type="image/ico" href="/favicon-dark.ico/"  media="(prefers-color-scheme: no-preference)" /> \
         <link rel="icon" type="image/ico" href="/favicon-dark.ico/"  media="(prefers-color-scheme: light)" /> \
         <link rel="icon" type="image/ico" href="/favicon-light.ico/" media="(prefers-color-scheme: dark)" /> ';
 } else {
-    _fav_text = '<link rel="icon" type="image/ico" href="/404.ico" />';
+    fav_text = '<link rel="icon" type="image/ico" href="/404.ico" />';
 }
-const fav_text = _fav_text; 
 ---
 
 <!DOCTYPE html>
@@ -23,27 +26,64 @@ const fav_text = _fav_text;
     <head set:html={fav_text}>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
     <body>
+        <header>
+            <NavMenu client:only="react" />
+            <SocialNetworks />
+        </header>
+
         <slot />
+
+        <footer>
+            <BuildInfo />
+        </footer>
     </body>
 </html>
 
 <style is:global>
-    :root {
-        --accent: 124, 58, 237;
-        --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-    }
-    html {
-        background: #283048;
-        background: -webkit-linear-gradient(to right, #859398, #283048);
-        background: linear-gradient(to right, #859398, #283048);
-        font-family: system-ui, sans-serif;
+    body {
+        background: #16213E;
+        color: #533483;
     }
     code {
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        font-family: Fira Code NF, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    }
+    footer {
+        background: #0F3460;
+        bottom: 0;
+        color: white;
+        font-size: calc(max(3vh, 20px));
+        justify-content: center;
+        left: 0;
+        margin: auto;
+        padding-top: 5px;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+    }
+    header {
+        background: #0F3460;
+        color: white;
+        height: 5%;
+        left: 0;
+        position: fixed;
+        text-decoration: none;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+    html {
+        font-family: Fira Code, system-ui, sans-serif;
+    }
+    main {
+        bottom: 5%;
+        position: absolute;
+        top: 5%;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-top: 1%;
     }
 </style>

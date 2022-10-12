@@ -24,18 +24,17 @@ const { color, href, icon, width } = Astro.props;
 
 <style define:vars={{color}}>
     div {
-        border-radius: 50%;
+        border-radius: 20%;
+        display: flex;
     }
     div:hover{
-        background: #C9D6FF;
-        background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
-        background: linear-gradient(to right, #E2E2E2, #C9D6FF);
+        background: black;
     }
     div:hover .social-icon {
         color: var(--color);
     }
     .social-icon {
-        color: black;
+        color: white;
         padding: calc(min(0.5vw, 8px));
-    }    
+    }
 </style>
