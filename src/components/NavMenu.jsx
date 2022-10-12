@@ -26,8 +26,8 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                                href="/pokemon-sites/index.html"
+                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            href="/pokemon-sites/index.html"
                             >
                             Páginas útiles
                             </a>
@@ -36,8 +36,8 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                                href="/pokemon-posts/index.html"
+                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            href="/pokemon-posts/index.html"
                             >
                             Mis posts
                             </a>
@@ -46,8 +46,8 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                                className={ `${active && "bg-palette-select text-white"} block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                                href="/40dex"
+                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            href="/40dex"
                             >
                             40dex
                             </a>
