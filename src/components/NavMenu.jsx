@@ -29,7 +29,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                                 className={aClassName(active)}
-                                href="/pokemon-sites/"
+                                href="/pokemon-sites/index.html"
                             >
                             Páginas útiles
                             </a>
@@ -39,7 +39,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                                 className={aClassName(active)}
-                                href="/pokemon-posts"
+                                href="/pokemon-posts/index.html"
                             >
                             Mis posts
                             </a>
