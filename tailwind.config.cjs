@@ -10,6 +10,7 @@ module.exports = {
 		  "palette2": "#393E46",
 		  "palette3": "#00ADB5",
 		  "palette4": "#EEEEEE",
+		  "links"   : "#E94560"
 		},
 	  },
 	},

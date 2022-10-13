@@ -6,7 +6,7 @@ const NavMenu = () => {
             <ul className="flex lg:space-x-5 lg:ml-14">
                 <li>
                 <Menu>
-                    <Menu.Button className="hover:text-palette3">
+                    <Menu.Button className="hover:text-links">
                     Pokémon GO 
                     </Menu.Button>
                     <Transition
