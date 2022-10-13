@@ -6,11 +6,11 @@ module.exports = {
 		  center: true,
 		},
 		colors: {
-		  "palette1": "#222831",
-		  "palette2": "#393E46",
-		  "palette3": "#00ADB5",
-		  "palette4": "#EEEEEE",
-		  "links"   : "#E94560"
+		  "palette1": "var(--palette1)",
+		  "palette2": "var(--palette2)",
+		  "palette3": "var(--palette3)",
+		  "palette4": "var(--palette4)",
+		  "links"   : "var(--links)"
 		},
 	  },
 	},
