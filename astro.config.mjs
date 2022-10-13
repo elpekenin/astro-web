@@ -4,6 +4,9 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
+  build: {
+    format: "file"
+  },
   integrations: [react(), tailwind()],
   mode: "deploy",
   server: {

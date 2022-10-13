@@ -3,6 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 const NavMenu = () => {
   return (
     <div className="flex items-center px-4 py-3">
+        &nbsp; &nbsp; &nbsp;
             <ul className="flex lg:space-x-5 lg:ml-14">
                 <li>
                 <Menu>
@@ -22,7 +23,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                             className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                            href="/pokemon-sites/index.html"
+                            href="/pokemon-sites/"
                             >
                             Páginas útiles
                             </a>
@@ -32,7 +33,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                             className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                            href="/pokemon-posts/index.html"
+                            href="/pokemon-posts/"
                             >
                             Mis posts
                             </a>
