@@ -23,7 +23,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                             className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                            href="/pokemon-sites/"
+                            href="/pokemon-sites.html"
                             >
                             Páginas útiles
                             </a>
@@ -33,7 +33,7 @@ const NavMenu = () => {
                         {({ active }) => (
                             <a
                             className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
-                            href="/pokemon-posts/"
+                            href="/pokemon-posts.html"
                             >
                             Mis posts
                             </a>
