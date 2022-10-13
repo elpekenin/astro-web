@@ -5,18 +5,16 @@ export interface Props {
     color: string;
     href: string;
     icon: string;
-    width: string;
 }
 
-const { color, href, icon, width } = Astro.props;
+const { color, href, icon } = Astro.props;
 ---
 
 <div>
     <a href={href}>
         <Icon 
-            class="social-icon"
+            class="mdi-icon"
             name={icon}
-            width={width}
         />
     </a>
 </div>
@@ -26,15 +24,12 @@ const { color, href, icon, width } = Astro.props;
     div {
         border-radius: 20%;
         display: flex;
+        margin-bottom: 0.2vh;
     }
     div:hover{
         background: black;
     }
-    div:hover .social-icon {
+    div:hover .mdi-icon {
         color: var(--color);
-    }
-    .social-icon {
-        color: white;
-        padding: calc(min(0.5vw, 8px));
     }
 </style>

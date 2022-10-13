@@ -1,18 +1,13 @@
 import { Menu, Transition } from "@headlessui/react";
-import Icon from '@mdi/react';
-import { mdiHome, mdiPokemonGo } from '@mdi/js';
 
 const NavMenu = () => {
   return (
     <div className="flex items-center px-4 py-3">
-        <a href="/"><Icon path={mdiHome} size={1.3} /></a>
-        
-        <nav className="align-center">
             <ul className="flex lg:space-x-5 lg:ml-14">
                 <li>
                 <Menu>
-                    <Menu.Button className="hover:text-palette-text ">
-                    <span className="inline-block"><Icon path={mdiPokemonGo} size={0.8} className="flex"/></span> Pokemon GO 
+                    <Menu.Button className="hover:text-palette3">
+                    Pokémon GO 
                     </Menu.Button>
                     <Transition
                         enter="transition duration-100 ease-out"
@@ -22,11 +17,11 @@ const NavMenu = () => {
                         leaveFrom="transform scale-100 opacity-100"
                         leaveTo="transform scale-95 opacity-0"
                     >
-                    <Menu.Items className="absolute left-0 mt-4 w-max py-3 rounded-md bg-palette-main focus:outline-none">
+                    <Menu.Items className="absolute left-0 mt-4 w-max py-3 rounded-md bg-palette1 focus:outline-none">
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                             href="/pokemon-sites/index.html"
                             >
                             Páginas útiles
@@ -36,7 +31,7 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                             href="/pokemon-posts/index.html"
                             >
                             Mis posts
@@ -46,7 +41,7 @@ const NavMenu = () => {
                         <Menu.Item>
                         {({ active }) => (
                             <a
-                            className={ `${active && "bg-palette-select text-white" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
+                            className={ `${active && "bg-palette3 text-palette4" } block w-full text-left px-4 py-2 text-sm cursor-pointer` }
                             href="/40dex"
                             >
                             40dex
@@ -58,7 +53,6 @@ const NavMenu = () => {
                 </Menu>
                 </li>
             </ul>
-        </nav>
     </div>
   );
 };

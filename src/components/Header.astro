@@ -1,0 +1,53 @@
+---
+import { Icon }       from "astro-icon";
+import NavMenu        from "./NavMenu.jsx";
+import SocialNetworks from "./SocialNetworks.astro";
+---
+<header>
+    <div class="left">
+        <div class="home">
+            <a href="/"><Icon class="mdi-icon" name="mdi:home"/></a>
+        </div>
+        <NavMenu client:only="react" />
+    </div>
+    <div class="right">
+        <SocialNetworks />
+    </div>
+</header>
+
+<style>
+    div {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    header {
+        background: var(--palette2);
+        color: var(--palette4);
+        font-size: 2.5vh;
+        height: 5vh;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        text-decoration: none;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+    .home {
+        margin-left: 1vw;
+    }
+    .left {
+        left: 0;
+    }
+    .nav-menu {
+        display: flex;
+        padding-left: 3vw;
+    }
+    .right {
+        right: 0;
+    }
+</style>
