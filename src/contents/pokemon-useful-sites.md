@@ -1,6 +1,7 @@
 ---
 author: elpekenin
 datetime: 2022-10-14T17:30:00Z
+slug: pokemon-useful-sites
 title: Recursos útiles para Pokémon GO
 featured: true
 draft: false
@@ -37,6 +38,7 @@ Reddit
 Telegram
 - https://t.me/Larvitar
 - https://t.me/PokemonGOHispana
+- https://t.me/pokemongoeventos
 
 Twitter
 - https://twitter.com/poke_miners
