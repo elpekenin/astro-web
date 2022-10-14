@@ -6,6 +6,9 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
+  build: {
+    format: "file"
+  },
   integrations: [
     react(),
     sitemap(),
