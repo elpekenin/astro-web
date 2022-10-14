@@ -34,7 +34,7 @@ const sortedPosts = getSortedPosts(posts);
             ({ frontmatter }) =>
               frontmatter.featured && (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}`}
+                  href={`/posts/${slugify(frontmatter)}.html`}
                   post={frontmatter}
                   secHeading={false}
                 />
@@ -54,7 +54,7 @@ const sortedPosts = getSortedPosts(posts);
             ({ frontmatter }, index) =>
               index < 4 && (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}`}
+                  href={`/posts/${slugify(frontmatter)}.html`}
                   post={frontmatter}
                   secHeading={false}
                 />
