@@ -1,6 +1,8 @@
 # build output
 dist/
 .output/
+TODO
+backups/
 
 # dependencies
 node_modules/
