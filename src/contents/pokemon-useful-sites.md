@@ -2,13 +2,13 @@
 author: elpekenin
 datetime: 2022-10-14T17:30:00Z
 slug: pokemon-useful-sites
-title: Recursos útiles para Pokémon GO
+title: "Recursos útiles #PokémonGO"
 featured: true
 draft: false
 tags:
   - pokemon-go
 ogImage: ""
-description: Listado de fuentes (relativamente) fiables de información sobre Pokémon GO
+description: Listado de fuentes (relativamente) fiables de información
 ---
 
 # Dónde buscar info de Pokémon GO
@@ -31,6 +31,9 @@ Algo complicada de aprender pero muy útil.
 <hr>
 
 ## Listado sin un orden concreto
+
+Raids
+- https://9db.jp/pokego/data/62
 
 Reddit
 - https://www.reddit.com/r/TheSilphRoad

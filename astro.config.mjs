@@ -1,9 +1,15 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
-import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import remarkToc from "remark-toc";
 import sitemap from "@astrojs/sitemap";
+
+
+function mySummarizer (str) {
+  return "Expandir el índice"
+}
+
 
 export default defineConfig({
   build: {
@@ -21,14 +27,19 @@ export default defineConfig({
   mode: "deploy",
   markdown: {
     remarkPlugins: [
-      remarkToc,
+      [
+        remarkToc,
+        {
+          heading: "Indice",
+        }
+      ],
       [
         remarkCollapse,
         {
-          test: "Table of contents",
+          test: "Indice",
+          summary: mySummarizer
         },
-      ],
-    ],
+      ],    ],
     shikiConfig: {
       theme: "one-dark-pro",
       wrap: true,
