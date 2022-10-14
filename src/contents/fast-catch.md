@@ -1,6 +1,6 @@
 ---
 author: elpekenin
-datetime: 2022-10-14T19:00:00Z
+datetime: 2022-10-14T19:23:00Z
 slug: fast-catch
 title: "Cómo capturar más rápido #PokémonGO"
 featured: true
