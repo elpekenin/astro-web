@@ -29,7 +29,7 @@ Algo complicada de aprender pero muy útil.
 
 <hr>
 
-# Listado sin un orden concreto
+## Listado sin un orden concreto
 
 Reddit
 - https://www.reddit.com/r/TheSilphRoad
