@@ -26,6 +26,7 @@ const { noMarginTop = false } = Astro.props;
             href={social.href}
             className="link-button"
             title={social.name}
+            color={social.color}
           >
             <Fragment set:html={socialIcons[social.name]} />
           </LinkButton>

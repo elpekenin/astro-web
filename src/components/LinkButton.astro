@@ -5,9 +5,11 @@ export interface Props {
   ariaLabel?: string;
   title?: string;
   tabindex?: string;
+  color?: string;
 }
 
-const { href, className, ariaLabel, title, tabindex } = Astro.props;
+const { href, className, ariaLabel, title, tabindex, color } = Astro.props;
+const _color = `${color ? color : "rgba(var(--color-accent))"}`;
 ---
 
 <a
@@ -21,8 +23,8 @@ const { href, className, ariaLabel, title, tabindex } = Astro.props;
   <slot />
 </a>
 
-<style>
+<style define:vars={{color: _color}}>
   a {
-    @apply hover:text-skin-accent;
+    @apply hover:text-[color:var(--color)];
   }
 </style>
