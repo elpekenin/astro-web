@@ -23,7 +23,6 @@ description: Varios consejos para optimizar el tiempo a la hora de capturar
 
 🏆 Evitamos la animación de la pokéball dando vueltas, ahorrando unos 5-10 segundos por cada pokémon
 
----
 ## 2. Usar la realidad aumentada (RA/AR)
     Pinchamos cualquier pokémon y activamos esta opción(botón arriba a la derecha)
 
@@ -57,9 +56,9 @@ description: Varios consejos para optimizar el tiempo a la hora de capturar
 
    [Enlace](https://play.google.com/store/apps/details?id=lockcamera.blockcamera.disablecamera) a la app
 
----
 ## Ejemplo de uso
 [Video](http://www.youtube.com/watch?v=ukrj_cZXuQA) en YouTube donde uso esta técnica durante una hora destacada
 
----
+<br />
+
 **Si has leído todo hasta aquí, enhorabuena por tu paciencia y muchas gracias**

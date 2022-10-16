@@ -56,8 +56,6 @@ $$round(round(\frac{5}{4}Def_{Alta} + \frac{3}{4}Def_{Baja}) \cdot (1+\frac{Vel 
 
 De igual forma, el valor más alto tiene la mayor importancia, sin embargo, el calculo está más equilibrado.
 
-<hr />
-
 ## Cálculo de estadísticas 'reales'
 Para calcular las estadísticas de un Pokémon debemos tener 3 factores en cuenta:
 - Estadística base de la especie en cuestión
@@ -77,8 +75,6 @@ El ***CPM*** es un valor que depende del nivel y sigue la siguiente progresión:
 <br />
 
 *Nota*: En [este artículo](https://gamepress.gg/pokemongo/cp-multiplier) (en inglés) se puede encontrar más información sobre el CPM
-
-<hr />
 
 ## Cálculo del PC de un Pokémon
 La fórmula es la siguiente:
