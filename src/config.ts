@@ -22,7 +22,7 @@ export const SOCIALS: SocialsObject = [
     name: "Discord",
     href: "https://discord.com/users/elpeke%C3%B1in#2234",
     active: true,
-    color: "#7289da"
+//    color: "#7289da"
   },
   {
     name: "Github",
