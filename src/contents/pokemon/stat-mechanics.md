@@ -8,7 +8,7 @@ draft: false
 tags:
   - pokemon-go
 ogImage: ""
-description: Explicación de las matemáticas tras las estadísticas en Pokémon GO
+description: Explicación de las matemáticas tras las estadísticas
 ---
 
 ## Índice
@@ -68,10 +68,19 @@ La fórmula, para cada una de las 3 stats, es la siguiente
 
 $(Stat_{Base} \ + \ IV) \ * \ CPM$
 
-Donde ***CPM*** es un valor que depende del nivel y sigue la siguiente progresión:
+Debido a que el IV (0-15) se sume a la stat base (en la mayoría de los casos, mucho mayor); para las stats finales apenas tiene importancia subir un Pokémon 0% o un 100%.
+
+El ***CPM*** es un valor que depende del nivel y sigue la siguiente progresión:
 
 <img style="border: none;" height="500px" src="/content-images/pokemon/CPM.png" />
 
 <br />
 
-*Nota*: En [este artículo](https://gamepress.gg/pokemongo/cp-multiplier)(en inglés) se puede encontrar más información sobre el CPM
+*Nota*: En [este artículo](https://gamepress.gg/pokemongo/cp-multiplier) (en inglés) se puede encontrar más información sobre el CPM
+
+<hr />
+
+## Cálculo del PC de un Pokémon
+La fórmula es la siguiente:
+
+$\frac{Atk \ \cdot \ {Def}^{\ 0.5} \ \cdot \ {Vida}^{\ 0.5} \ \cdot \ {CPM}^{\ 0.5}}{10}$
