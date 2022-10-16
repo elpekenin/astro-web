@@ -1,7 +1,6 @@
 ---
 author: elpekenin
 datetime: 2022-10-15T19:22:00Z
-slug: pokemon-check-utility
 title: "Es útil este Pokémon? #PokémonGO"
 featured: true
 draft: false
@@ -16,11 +15,11 @@ description: Herramientas para comprobar cómo de útil es un Pokémon
 
 ## 2. IV buenos para PvP
  - APPs como CalcyIV o PokeGenie
- - https://www.stadiumgaming.gg/rank-checker 
+ - https://www.stadiumgaming.gg/rank-checker
 Más completa pero algo mas difícil de usar.
 
 ## 3. Mejores counters para raid
- - https://www.pokebattler.com/raids 
+ - https://www.pokebattler.com/raids
 Algo complicada de aprender pero muy útil.
 
 ## 4. Comprobar DPS/TDO (Mejores Pokes de cada tipo)

@@ -1,7 +1,6 @@
 ---
 author: elpekenin
 datetime: 2022-10-16T11:25:00Z
-slug: 40-dex
 title: "Guía para los trades lucky #PokémonGO"
 featured: false
 draft: false

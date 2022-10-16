@@ -1,7 +1,6 @@
 ---
 author: elpekenin
 datetime: 2022-10-16T17:40:00Z
-slug: pvp-ivs
 title: "IVs para PvP #PokémonGO"
 featured: false
 draft: false

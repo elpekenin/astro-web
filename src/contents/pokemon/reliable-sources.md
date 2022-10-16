@@ -1,7 +1,6 @@
 ---
 author: elpekenin
 datetime: 2022-10-15T19:24:00Z
-slug: pokemon-reliable-sources
 title: "Fuentes 'fiables' #PokémonGO"
 featured: false
 draft: false

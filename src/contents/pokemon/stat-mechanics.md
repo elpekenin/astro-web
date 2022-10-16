@@ -1,7 +1,6 @@
 ---
 author: elpekenin
 datetime: 2022-10-16T17:23:00Z
-slug: pokemon-stat-mechanics
 title: "Como funcionan las estadísticas #PokémonGO"
 featured: false
 draft: false
