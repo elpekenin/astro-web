@@ -15,9 +15,9 @@ description: Explicación del contenido en https://elpekenin.dev/40dex
 <img style="border: none" src="/content-images/pokemon/40dex-search.png" />
 
 - En cada poke se ve
-<div style="display: flex;">
-    <div style="margin-left: 20%" >
-        <img style="border: none; height: 150px; width: 180px;" src="/content-images/pokemon/40dex-species.png" />
+<div style="display: flex; align-items: center;">
+    <div style="margin-left: 3vw;">
+        <img style="border: none;" src="/content-images/pokemon/40dex-species.png" />
     </div>
     <ul style="font-size: 1.5vh; margin-left: 15px;">
         <li> El número muestra cuántos tengo subidos </li>
@@ -27,10 +27,8 @@ description: Explicación del contenido en https://elpekenin.dev/40dex
 </div>
 
 
-- Para cada familia se puede ver
+- Para cada familia se puede ver un tick/cruz indica si tengo(o no) algun poke subido de dicha familia
 <img style="border: none;" src="/content-images/pokemon/40dex-family.png" />
-
-    - Un tick/cruz indica si tengo(o no) algun poke subido de dicha familia
 
 # ¿Qué busco?
 - Principalmente, shinys de cuya familia no tenga ninguno subido aún (❌)
