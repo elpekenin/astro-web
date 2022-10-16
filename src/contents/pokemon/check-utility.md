@@ -1,9 +1,7 @@
 ---
-author: elpekenin
 datetime: 2022-10-15T19:22:00Z
 title: "Es útil este Pokémon? #PokémonGO"
 featured: true
-draft: false
 tags:
   - pokemon-go
 ogImage: ""

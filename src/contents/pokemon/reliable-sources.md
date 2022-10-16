@@ -1,9 +1,6 @@
 ---
-author: elpekenin
 datetime: 2022-10-15T19:24:00Z
 title: "Fuentes 'fiables' #PokémonGO"
-featured: false
-draft: false
 tags:
   - pokemon-go
 ogImage: ""

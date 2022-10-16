@@ -1,9 +1,6 @@
 ---
-author: elpekenin
 datetime: 2022-10-16T17:23:00Z
 title: "Como funcionan las estadísticas #PokémonGO"
-featured: false
-draft: false
 tags:
   - pokemon-go
 ogImage: ""

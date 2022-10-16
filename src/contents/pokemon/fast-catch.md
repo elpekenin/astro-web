@@ -1,9 +1,7 @@
 ---
-author: elpekenin
 datetime: 2022-10-14T19:23:00Z
 title: "Cómo capturar más rápido #PokémonGO"
 featured: true
-draft: false
 tags:
   - pokemon-go
 ogImage: ""

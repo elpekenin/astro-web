@@ -1,7 +1,7 @@
 import type { SocialsObject } from "./types";
 
 export const SITE = {
-  author: "Pablo (elpekenin) Martínez",
+  author: "elpekenin",
   desc: "Web personal con pequeñas publicaciones.",
   lightAndDarkMode: false,
   ogImage: "default-og.png",
