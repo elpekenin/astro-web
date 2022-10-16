@@ -15,7 +15,7 @@ if (breadcrumbList[0].includes(".html")) {
 // replace with (page number)
 if (
   (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[1]))) ||
-  (breadcrumbList[0] === "posts" && breadcrumbList.length < 2)
+  (breadcrumbList[0] === "posts" && breadcrumbList.length <= 2)
 ) {
   breadcrumbList.splice(
     0,
