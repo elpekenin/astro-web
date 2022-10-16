@@ -4,7 +4,9 @@
     "astro": "^1.1.7",
     "fuse.js": "^6.6.2",
     "github-slugger": "^1.4.0",
+    "rehype-mathjax": "^4.0.2",
     "remark-collapse": "^0.1.2",
+    "remark-math": "^5.1.1",
     "remark-toc": "^8.0.1"
   },
   "devDependencies": {

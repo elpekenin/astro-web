@@ -1,8 +1,10 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
+import rehypeMathjax from "rehype-mathjax/chtml.js";
 import react from "@astrojs/react";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
+import remarkMath from "remark-math";
 import sitemap from "@astrojs/sitemap";
 
 
@@ -27,19 +29,32 @@ export default defineConfig({
   mode: "deploy",
   markdown: {
     remarkPlugins: [
+      remarkMath,
       [
         remarkToc,
         {
-          heading: "Indice",
+          heading: "Índice",
         }
       ],
       [
         remarkCollapse,
         {
-          test: "Indice",
+          test: "Índice",
           summary: mySummarizer
         },
-      ],    ],
+      ],
+    ],
+    rehypePlugins: [
+      [
+        rehypeMathjax,
+        {
+          chtml: {
+            fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+            scale: 1.5
+          }
+        }
+      ]
+    ],
     shikiConfig: {
       theme: "one-dark-pro",
       wrap: true,

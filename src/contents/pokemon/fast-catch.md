@@ -11,7 +11,7 @@ ogImage: ""
 description: Varios consejos para optimizar el tiempo a la hora de capturar
 ---
 
-## Indice
+## Índice
 
 ## 1. Captura rápida
     1) Desliza un poco el menu de bolas o bayas, sin llegar a abrirlo
