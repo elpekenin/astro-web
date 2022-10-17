@@ -6,8 +6,6 @@ import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
 import sitemap from "@astrojs/sitemap";
-import { pathRemarkPlugin } from "./path-remark-plug.mjs";
-
 
 function mySummarizer (str) {
   return "Expandir el índice"
@@ -30,7 +28,6 @@ export default defineConfig({
   mode: "deploy",
   markdown: {
     remarkPlugins: [
-      pathRemarkPlugin,
       remarkMath,
       [
         remarkToc,
