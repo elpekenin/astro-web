@@ -27,9 +27,9 @@ const next = pageNum < totalPages ? "" : "disabled";
   <Main pageTitle="Posts" pageDesc="Todos los artículos que he publicado.">
     <ul>
       {
-        posts.map(({ frontmatter }) => {
+        posts.map((post) => {
           return (
-            <Card href={`/posts/${slugify(frontmatter)}.html`} post={frontmatter} />
+            <Card href={`/posts/${slugify(post)}.html`} post={post.frontmatter} />
           );
         })
       }

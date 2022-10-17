@@ -31,11 +31,11 @@ const sortedPosts = getSortedPosts(posts);
       <ul>
         {
           sortedPosts.map(
-            ({ frontmatter }) =>
-              frontmatter.featured && (
+            (post) =>
+              post.frontmatter.featured && (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}.html`}
-                  post={frontmatter}
+                  href={`/posts/${slugify(post)}.html`}
+                  post={post.frontmatter}
                   secHeading={false}
                 />
               )
@@ -51,11 +51,11 @@ const sortedPosts = getSortedPosts(posts);
       <ul>
         {
           sortedPosts.map(
-            ({ frontmatter }, index) =>
+            (post, index) =>
               index < 4 && (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}.html`}
-                  post={frontmatter}
+                  href={`/posts/${slugify(post)}.html`}
+                  post={post.frontmatter}
                   secHeading={false}
                 />
               )

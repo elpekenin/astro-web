@@ -4,11 +4,10 @@ export interface Frontmatter {
   description: string;
   author: string;
   datetime: string;
-  slug: string;
+  slug?: string;
   featured: boolean;
   draft: boolean;
   tags: string[];
-  filename: string;
 }
 
 export type SocialsObject = {
