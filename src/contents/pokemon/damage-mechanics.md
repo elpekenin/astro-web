@@ -8,7 +8,8 @@ ogImage: ""
 
 ## Índice
 
-En este otro [post](/posts/pokemon-stat-mechanics.html) pudimos ver cómo se calculan las estadísticas de nuestros Pokémon, en esta guía vamos a ver como se calcula el daño de una ataque a partir de esos valores.
+## Conocimientos previos
+En este otro [post](/posts/pokemon-stat-mechanics.html) pudimos ver cómo se calculan las estadísticas de nuestros Pokémon, en el post actual vamos a ver como se calcula el daño de un ataque a partir de esos valores.
 
 ## Fórmula
 
