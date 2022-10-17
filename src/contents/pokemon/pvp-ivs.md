@@ -4,7 +4,6 @@ title: "IVs para PvP #PokémonGO"
 tags:
   - pokemon-go
 ogImage: ""
-description: Explicación de los IVs óptimos para PvP
 ---
 
 ## Norma general
@@ -20,6 +19,6 @@ Debido a esto, en las ligas 'pequeñas' (500, 1500 y 2500 de PC) es preferible s
 ### CMP
 El CMP (Charged Move Priority) decide cuál de los Pokémon tira antes el movimiento cargado si ambos le han dado en el mismo turno al botón, dado que esta decisión se basa simplemente en ver qué stat de ataque es la más alta, puede ser preferible tener un poco más de ataque.
 
-<!-- TODO
-### Break/bulkpoints
--->
+
+### Break/Bulkpoints
+Como se puede ver en este otro [post](/posts/pokemon-damage-mechanics.html#breakpointsbulkpoints), también es posible que queramos unos IVs que se enfoquen en el ataque o la defensa final de nuestro Pokémon para aumentar el daño que hacemos o recibimos con ataque básicos.

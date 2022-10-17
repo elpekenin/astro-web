@@ -5,7 +5,7 @@ export const SITE = {
   desc: "Web personal con pequeñas publicaciones.",
   lightAndDarkMode: false,
   ogImage: "default-og.png",
-  postPerPage: 5,
+  postPerPage: 6,
   title: "peke's web",
   website: "https://elpekenin.dev",
 };

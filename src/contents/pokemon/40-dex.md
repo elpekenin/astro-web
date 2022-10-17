@@ -4,7 +4,6 @@ title: "Guía para los trades lucky #PokémonGO"
 tags:
   - pokemon-go
 ogImage: ""
-description: Explicación del contenido en https://elpekenin.dev/40dex
 ---
 
 # Información en pantalla

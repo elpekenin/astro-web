@@ -5,7 +5,6 @@ featured: true
 tags:
   - pokemon-go
 ogImage: ""
-description: Herramientas para comprobar cómo de útil es un Pokémon
 ---
 
 ## 1. Especies buenas en PvP

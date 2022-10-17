@@ -4,7 +4,6 @@ title: "Como funcionan las estadísticas #PokémonGO"
 tags:
   - pokemon-go
 ogImage: ""
-description: Explicación de las matemáticas tras las estadísticas
 ---
 
 ## Índice
@@ -30,7 +29,7 @@ $$floor(1.75 \cdot Vida \ + \ 50)$$
 
 <br />
 
-*Nota*: $floor()$ significa 'recortar la parte entera'
+*Nota*: `floor()` significa 'recortar la parte entera'
 
 <br />
 
@@ -42,7 +41,7 @@ Como se puede ver, es debido a esta fórmula que los pokémon que tienen mucho a
 
 <br />
 
-*Nota*: $round()$ significa 'redondear al entero más cercano'
+*Nota*: `round()` significa 'redondear al entero más cercano'
 
 <br />
 
@@ -58,7 +57,7 @@ Para calcular las estadísticas de un Pokémon debemos tener 3 factores en cuent
 - IVs de nuestro Pokémon
 - Nivel del Pokémon
 
-La fórmula, para cada una de las 3 stats, es la siguiente
+La fórmula, para cada una de las 3 stats, es la siguiente (en el caso de la vida, se redondea este resultado)
 
 $(Stat_{Base} \ + \ IV) \ * \ CPM$
 

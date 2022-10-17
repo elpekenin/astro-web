@@ -5,7 +5,6 @@ featured: true
 tags:
   - pokemon-go
 ogImage: ""
-description: Varios consejos para optimizar el tiempo a la hora de capturar
 ---
 
 ## Índice

@@ -4,7 +4,6 @@ title: "Fuentes 'fiables' #PokémonGO"
 tags:
   - pokemon-go
 ogImage: ""
-description: Diversos sitios donde podemos consultar información y noticias
 ---
 
 ### *Listado sin un orden concreto*
