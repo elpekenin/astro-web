@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const { href, className, ariaLabel, title, tabindex, color } = Astro.props;
-const _color = color ? color : "rgb(var(--color-accent))";
+const _color = color || "rgb(var(--color-accent))";
 ---
 
 <a
