@@ -13,16 +13,9 @@ if (breadcrumbList[0].includes(".html")) {
 
 // if breadcrumb is Home > Posts > <number>
 // replace with (page number)
-if (
-  (breadcrumbList[0] === "posts" && !isNaN(Number(breadcrumbList[1]))) ||
-  (breadcrumbList[0] === "posts" && breadcrumbList.length < 2)
-) {
-  breadcrumbList.splice(
-    0,
-    2,
-    `Posts (página ${breadcrumbList[1] ? breadcrumbList[1].replace(".html", "") : 1})`
-  );
-}
+if (breadcrumbList[0] === "posts")
+  breadcrumbList.splice(0, 2, `Posts (página ${breadcrumbList[1] ? breadcrumbList[1].replace(".html", "") : 1})`);
+
 
 if (breadcrumbList[0] === "search") {
   breadcrumbList.splice(0, 2, "Buscar")
