@@ -13,10 +13,13 @@ const { noMarginTop = false } = Astro.props;
 ---
 
 <footer class={`${noMarginTop ? "" : "mt-auto"}`}>
+  <div class="left">
+    Contáctame sin miedo para bugs o sugerencias :)
+  </div>
+  <Hr noPadding />
   <div class="credits">
     Based on <LinkButton className="hover:text-skin-accent underline underline-offset-4 decoration-dashed" href="https://github.com/satnaing/astro-paper"> Astro-Paper </LinkButton> by Sat Naing
   </div>
-  <Hr noPadding />
   <div class="footer-wrapper">
     <Socials centered />
     <div class="copyright-wrapper">
@@ -32,7 +35,7 @@ const { noMarginTop = false } = Astro.props;
     @apply w-full;
   }
   .footer-wrapper {
-    @apply py-6 sm:py-4 flex flex-col sm:flex-row-reverse justify-between items-center;
+    @apply flex flex-col sm:flex-row-reverse justify-between items-center;
   }
   .link-button {
     @apply p-2 my-1 hover:rotate-6;
@@ -47,6 +50,9 @@ const { noMarginTop = false } = Astro.props;
     @apply hidden sm:inline;
   }
   .credits {
-    @apply py-2 text-right;
+    @apply pt-2 pb-4 text-right;
+  }
+  .left {
+    @apply text-left py-4 font-bold italic;
   }
 </style>
