@@ -25,6 +25,6 @@ Lo que se traduce en: Cualquier especie cuyo valor de ataque base sea mayor a 75
 En Reddit hicieron un [estudio](https://www.reddit.com/r/TheSilphRoad/comments/vsj93h/psa_for_the_purposes_of_raiding_shadows_are/?utm_source=share&utm_medium=android_app&utm_name=androidcss&utm_term=2&utm_content=share_button) donde podemos ver como los oscuros, pese a costar más polvo subir cada nivel, salen más rentables debido a este bono de daño.
 
 ## Resumen
-Cualquier Pokémon que sea meta para raids tendrá más de 75 ataque base, por lo que cualquier IV es suficientemente bueno para ser subido##
+Cualquier Pokémon que sea meta para raids tendrá más de 75 ataque base, por lo que cualquier IV es suficientemente bueno para ser subido.
 
 *NOTA*: Si quieres optimizar aún más, te puedes subir un Pokémon que sea bueno en 2 tipos como Weavile(Siniestro y Hielo) o Mamoswine(Hielo y Tierra). De esta forma, gastando MT rápida y {MT cargada}/{poniendo segundo cargado}, podrás tener 2 Pokémon por el precio de uno
