@@ -21,10 +21,11 @@ $$floor(\frac{1}{2} \ \cdot \ Poder \ \cdot \ \frac{Atk}{Def} \ \cdot \ Mult)+1$
  - `Atk` y `Def` son el ataque del Pokémon que utiliza el movimiento, y la defensa de quien lo recibe, respectivamente.
  - `Mult` es un multiplicador, que depende de varios factores:
    - *STAB*(Same Type Attack Bonus): Usar un movimiento del mismo tipo que el Pokémon aumenta un 20% su daño (x1.2)
-     - Clima: Si usamos un movimiento potenciado por el tiempo atmósferico, también se aumenta en 20% su daño
-     - Amistad: Obtenemos un aumento de 3%-5%-7%-10% dependiendo del nivel de amistad con otros entrenadores
-   - Solo aplica en incursiones
-   - No se acumula: Se aplica el mayor valor entre todos los amigos
+   - Clima: Si usamos un movimiento potenciado por el tiempo atmósferico, también se aumenta en 20% su daño
+   - Bonus oscuro: Los Pokémon oscuros tienen un bono de 20% daño (a costa de aguantar menos)
+   - Amistad: Obtenemos un aumento de 3%-5%-7%-10% dependiendo del nivel de amistad con otros entrenadores
+     - Solo aplica en incursiones
+     - No se acumula: Se aplica el mayor valor entre todos los amigos
    - Efectividad: Según los tipos, el daño puede ser mutliplicado x1.6(eficaz) o x0.625(resistido)
      - En Pokémon GO las 'inmunidades' cuentan como doble resistencia
 

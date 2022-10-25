@@ -9,7 +9,7 @@ ogImage: ""
 ## Norma general
 Como se puede ver en la [fórmula del cálculo de PC](/posts/pokemon-stat-mechanics.html#c%C3%A1lculo-del-pc-de-un-pok%C3%A9mon), la estadística de **ataque** es con diferencia la que más peso tiene, ya que la vida y la defensa van elevadas a 0.5 (raíz cuadrada), por lo que se reduce bastante su valor.
 
-Debido a esto, en las ligas 'pequeñas' (500, 1500 y 2500 de PC) es preferible subirse un pokémon con poco ataque (parecidos al 0-15-15), ya que de esta forma estaremos aumentando la cantidad de niveles que le podemos subir antes de sobrepasar el límite de la liga. Con esto aumentaremos el [CPM](https://elpekenin.dev/posts/pokemon-stat-mechanics.html#c%C3%A1lculo-de-estad%C3%ADsticas-reales), por lo que obtendremos unas estadísticas totales mayores.
+Debido a esto, en las ligas 'pequeñas' (500, 1500 y 2500 de PC) es preferible subirse un pokémon con poco ataque (parecidos al 0-15-15), ya que de esta forma estaremos aumentando la cantidad de niveles que le podemos subir antes de sobrepasar el límite de la liga. Con esto aumentaremos el [CPM](/posts/pokemon-stat-mechanics.html#c%C3%A1lculo-de-estad%C3%ADsticas-reales), por lo que obtendremos unas estadísticas totales mayores.
 
 <br />
 
