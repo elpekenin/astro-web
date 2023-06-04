@@ -37,12 +37,12 @@ TODO: Document this
 #### Scrolling text API
 Using `defer_exec` to draw moving strings, similar to `qp_animate`. 
 
-🔴Uses `malloc`, `realloc` and `free`🔴 to keep a copy of the string, becase original one could "die" while this is running.
+🔴Uses `malloc`, `realloc` and `free`🔴 to keep a copy of the string, because original one could "die" while this is running.
 
 **<u>Note</u>:** The state (`scrolling_text_state_t`) contains the amount of spaces to draw before repeating the string, this is currently not exposed and gets a hardcoded value on the function's body.
 
   - Create a new scrolling text with `draw_scrolling_text(device, x, y, font, *str, n_chars, delay)` or its `_recolor` counterpart
-    
+
     As you can see, this is pretty similar to `qp_drawtext` but also takes the amount of chars to be drawn and delay between moving one step to the left. It returns a token that identifies this task <p>
 
   - Extend an existing task's text (mainly meant for drawing long strings this over XAP): `extend_scrolling_text(token, *new_str)`
@@ -52,7 +52,7 @@ Using `defer_exec` to draw moving strings, similar to `qp_animate`.
 There are some smaller functions here:
   - Small code to compute days, hours, minutes, seconds from `timer_read32` and drawing them on a screen
   - `draw_commit` does what its name says, based on `version.h`. PR'ed this on [#19542](https://github.com/qmk/qmk_firmware/pull/19542)
-  - `draw_features` iterates over [`enabled_features_t`](#user_featuresh) to draw its contents. Both of this functions will show laters information when called from slave side (without needing a reflash) using [data sync](#user_transactionsh)
+  - `draw_features` iterates over [`enabled_features_t`](#user_featuresh) to draw its contents. Both of these functions will show latest information when called from slave side (without needing a reflash) using [data sync](#user_transactionsh)
 
 ### `qp_logging.h`
 Again, based on @tzarc's work, this replaces the built-in function called by `print` under the hood to render each `char`. On this tweaked version, we maintain the default send-over-USB behaviour, but also keep track of it on a buffer to later draw on a display. Extended his work by allowing a bigger text size and drawing it with my `scrolling` API.
