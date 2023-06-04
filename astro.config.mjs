@@ -3,11 +3,15 @@ import tailwind from "@astrojs/tailwind";
 import rehypeMathjax from "rehype-mathjax/chtml.js";
 import react from "@astrojs/react";
 import remarkCollapse from "remark-collapse";
-import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
+import remarkToc from "remark-toc";
 import sitemap from "@astrojs/sitemap";
 
+
 function mySummarizer (str) {
+  if (str.toLowerCase().includes("index"))
+    return "Expand table of contents"
+
   return "Expandir el índice"
 }
 
@@ -32,14 +36,14 @@ export default defineConfig({
       [
         remarkToc,
         {
-          heading: "Índice",
+          heading: "Índice|Indice|Index",
           tight: true
         }
       ],
       [
         remarkCollapse,
         {
-          test: "Índice",
+          test: "Índice|Indice|Index",
           summary: mySummarizer
         },
       ],
