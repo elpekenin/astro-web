@@ -51,7 +51,7 @@ Using `defer_exec` to draw moving strings, similar to `qp_animate`.
 
   deferred_token draw_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
   ``` 
-  * Make a task's text longer (mainly meant for drawing long strings this over XAP):
+  * Make a task's text longer (mainly meant for drawing long strings over XAP):
   ```c
   void stop_scrolling_text(deferred_token scrolling_token);
   ```
@@ -72,14 +72,14 @@ There are some other functionalities here:
   void draw_features(painter_device_t device);
   ```
   
-These last functions will show latest information when called from slave side (without needing a reflash) using [data sync](#user_transactionsh) 
+These last two functions will show latest information when called from slave side (without needing a reflash) using [data sync](#user_transactionsh) 
    
 Output:
   
   ![](/content-images/qmk/features_draw.png)
 
 ## `print` on your screens: `qp_logging.h`
-Again, based on @tzarc's work, this replaces the built-in function called by the implementation of `print` under the hood to render each `char`. On this tweaked version, we maintain the default send-over-USB behaviour, but also keep track of it on a buffer to later draw on a display. I extended his work allowing longer lines to be stored and drawing it with my [`scrolling API`](#scrolling-text-api-✨)
+Again, based on @tzarc's work, this replaces the built-in function called by `print` to render each `char`. On this tweaked version, we maintain the default send-over-USB behaviour, but also keep track of it on a buffer to then draw on a display. I extended his work allowing longer lines to be stored and drawing them (when needed) with my [`scrolling API`](#scrolling-text-api-✨)
 
 The actual drawing takes place on `graphics.c`, this file simply keeps track of the text.
 
@@ -89,7 +89,7 @@ Usage:
   #define LOG_N_LINES <Number>
   #define LOG_N_CHARS <Number>
   ```
-  2. Determine the screen where to draw
+  1. Determine the screen where to draw
   ```c
   qp_log_target_device = <your_device>;
   ```
@@ -114,29 +114,29 @@ Usage:
   # --------
   QP_XAP = no
   ```
-  3. Code relies on having the assets in the arrays exposed on [Quantum Painter - Macros](#macros)
-  4. Send messages over XAP, to execute this code. [My fork](https://github.com/elpekenin/qmk_xap) of [qmk_xap](https://github.com/qmk/qmk_xap)(official QMK's XAP client)
+  3. Code relies on having the assets in the arrays mentioned on [Quantum Painter - Macros](#macros)
+  4. Send XAP messages from PC to execute this code. [Here](https://github.com/elpekenin/qmk_xap) is my fork of [qmk_xap](https://github.com/qmk/qmk_xap)(official QMK's XAP client)
 
 ## Send info to the PC: `user_xap.h`
-Helper functions to send information about some events to the XAP client, such as reboot/bootload, keys being pressed or released (could make some usage stats), or [touch screen](#touch_driverh)'s state.
+Helper functions to send information about some events to the XAP client, such as reboot/bootloader, keys being pressed or released (could make some usage stats), or [touch screen](#touch_driverh)'s state.
 
 ---
 
 # Codegen
-Generate **C** code from **Python** `/scripts` that get run during compilation.
+Generate **C** code from **Python** scripts that get run during compilation.
 
 ## 1. Enabled features: `features.py`
-Defines `enabled_features_t` which is a struct that contains whether some features where enabled on this compilation or not.
+Defines `enabled_features_t` which is a struct containing whether some features are enabled on this compilation or not.
 
 Usage:
   1. Tweak its configuration (if you want to) at the very top of the script
-    * Add or remove elements from `FEATURES` to modify which of them are checked by the script 
+    * Add or remove elements from `FEATURES` to modify which of them are tracked
     * Use `SHORT_NAMES` to define aliases (these are only used on the `draw_features` function, not on the `struct`'s attributes names)
-  2. Read the values with
+  2. Read the state
   ```c
   enabled_features_t get_enabled_features(void);
   ```
-  3. Read state of a particular feature (note: all names are `lower_snake_case`)
+  3. Check a particular feature (note: all names are `lower_snake_case`)
   ```c
   if (features.rgb_matrix) {
       printf("RGB Matrix is enabled!\n");
