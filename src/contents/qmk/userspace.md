@@ -358,6 +358,8 @@ Usage:
      void keylog_process(uint16_t keycode, keyrecord_t *record);
      ```
 
+  6. My code will also change the log's color based on WPM(if enabled), you can tweak the colors (or completely get rid of them) and the WPM values at which they change by editing `graphics.c`. I didn't setup any `#define` for this 
+
 Congratz!
 ![](/content-images/qmk/keylog.jpg)
 
