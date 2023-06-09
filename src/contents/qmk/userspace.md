@@ -21,10 +21,10 @@ Code using these features can be found at the userspace itself, my [custom keybo
 # Index
 
 # Quantum Painter
-## 🚧 Auto-include assets
-TODO: Move to a scripts outside of CLI and document it
-
 ## Drawing, and some helpers: `graphics.h`
+### All assets available dynamically
+See [here](#2-auto-include-assets-qp_resourcesh)
+
 ### Macros
 `load_display`, `load_font` and `load_image` which:
   * Load fonts/images into RAM, using QP's API
@@ -142,6 +142,15 @@ Usage:
       printf("RGB Matrix is enabled!\n");
   }
   ```
+
+## 2. Auto-include assets `qp_resources.h`
+Creates:
+  * `generated_qp_resources.h`, header that `#include`'s all QGF/QFF files found, and gets `#include`'d by `graphics.h`
+  * `generated_qp_resources.mk` which has the `SRC +=` lines for them
+
+Usage: Locate your files at `painter/fonts` and `painter/images` at the keyboard, keymap, or userspace level and they will be found
+
+TODO: Generate `load_resources` too
 
 ---
 
