@@ -143,14 +143,13 @@ Usage:
   }
   ```
 
-## 2. Auto-include assets `qp_resources.h`
+## 2. Auto-include assets: `qp_resources.py`
 Creates:
   * `generated_qp_resources.h`, header that `#include`'s all QGF/QFF files found, and gets `#include`'d by `graphics.h`
+  * `generated_qp_resouces.c`, defines `load_qp_resources` that calls `load_font` and `load_image` [macros](#macros) on every asset found
   * `generated_qp_resources.mk` which has the `SRC +=` lines for them
 
-Usage: Locate your files at `painter/fonts` and `painter/images` at the keyboard, keymap, or userspace level and they will be found
-
-TODO: Generate `load_resources` too
+Usage: Code will locate your files at `painter/fonts` and `painter/images` on the keyboard, keymap, and userspace folders. No need to configure anything (can't be disabled either)
 
 ---
 
