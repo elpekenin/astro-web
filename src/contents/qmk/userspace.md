@@ -10,7 +10,7 @@ ogImage: ""
 ---
 # ⚠️ NOTE ⚠️
 
-*Any code/explanation in here may not be updated with the current state of my repo whenever you read this, bear that in mind. However, file names/location shouldn't change much and should be easy to find. Code-wise, chances are stuff is added without removing (**but perhaps moving**) the functionality explained here.*
+*Bear in mind, any code/explanation here may not be up to date with the current state of my repo when reading this. However, filenames and locations shouldn't change much and should remain easy to find. New functionality will be added but may not be documented, things explained below (most likely) won't be removed but chances are they get moved around, though.*
 
 If you are reading this, you probably know already, but code using these features can be found on my [qmk_build](https://github.com/elpekenin/qmk_build) repository.
   * Most stuff is under `users/elpekenin`
@@ -21,15 +21,15 @@ If you are reading this, you probably know already, but code using these feature
 
 # Index
 
-# Quantum Painter
+# Quantum Painter (from now on, "*QP*")
 ## Drawing, and some helpers: `graphics.h`
 ### All assets available dynamically
 See [here](#2-auto-include-assets-qp_resourcesh)
 
-### Dynamically access resources (instead of variables)
+### Programmatic access to resources (instead of variables)
   * API for loading (`load_display`, `load_font` and `load_image`) will:
     * Load fonts/images into RAM, using QP's API (`qp_load_*_mem`)
-    * Save these resources on arrays, to later access them
+    * Save these resources into arrays
       * `qp_devices_pekenin` (avoid name collision with `qp_internal.c`)
       * `qp_fonts`
       * `qp_images`
@@ -40,9 +40,9 @@ See [here](#2-auto-include-assets-qp_resourcesh)
 
 
 ### Scrolling text API ✨
-Using `defer_exec` to draw moving strings, similar to `qp_animate`. 
+<span style="margin-right: 30%"></span>🔴Uses `malloc`, `realloc` and `free`🔴
 
-🔴Uses `malloc`, `realloc` and `free`🔴
+Using `defer_exec` to draw moving strings, similar to `qp_animate`. 
 
 **<u>Note</u>:** The state (`scrolling_text_state_t`) contains the amount of spaces to draw before repeating the string, this is currently not part of the API and gets a hardcoded value on the function's body.
 
@@ -85,7 +85,7 @@ Output:
 Inspired on @tzarc's work, this replaces the function called by `print` to render each `char` with a custom implementation.
 
 On this tweaked version:
-  * If QP is enabled, we keep track of logging messages on a buffer to then draw them on a display. I extended @tzarc's work allowing longer lines to be stored and drawing them (when needed) with my [`scrolling API`](#scrolling-text-api-✨)
+  * If QP is enabled, we keep track of logging messages on a buffer to then draw them on a display. I extended @tzarc's functionality by allowing longer lines to be stored and drawing them (when needed) with my [`scrolling texts API`](#scrolling-text-api-✨)
   * If XAP is enabled, send logging over it. [XAP's Log specification](https://github.com/qmk/qmk_firmware/blob/xap/docs/xap_0.3.0.md#log-message---0x00)
   * Maintain the implementation provided by QMK (`sendchar`) which will be a no-op or Console endpoint if said feature is enabled.
 
@@ -110,6 +110,9 @@ If you want some pre-converted QGF images, I have a collection of Material Desig
 ---
 
 # XAP
+
+In case you haven't heard of it, this is a Work In Progress feature aimed for bidirectional communication between your keyboard and PC, you can track it on [PR#13733](https://github.com/qmk/qmk_firmware/pull/13733), and its documentation can be found on that same branch (`xap`) of the repo, under the `docs` folder.
+
 ## Draw from the PC: `qp_over_xap.h`
 XAP bindings that expose display-related functions over XAP.
 
@@ -124,10 +127,13 @@ Usage:
   QP_XAP = no
   ```
   3. Code relies on having the assets in the arrays mentioned on [Quantum Painter - Macros](#macros)
-  4. Send XAP messages from PC to execute this code. [Here](https://github.com/elpekenin/qmk_xap) is my fork of [qmk_xap](https://github.com/qmk/qmk_xap)(official QMK's XAP client)
+  4. Send XAP messages from PC to execute this code. [Here](https://github.com/elpekenin/qmk_xap) is my fork of [qmk_xap](https://github.com/qmk/qmk_xap) (which is official QMK's XAP client)
 
 ## Send info to the PC: `user_xap.h`
-Helper functions to send information about some events to the XAP client, such as reboot/bootloader, keys being pressed or released (could make some usage stats), or [touch screen](#touch_driverh)'s state.
+Helper functions to send information about some events to the XAP client, such as:
+  * Rebooting the board or jumping to bootloader
+  * Key events (presses/released) which could be used to make usage stats
+  * [Touch screen](#touch_driverh) state
 
 ---
 
