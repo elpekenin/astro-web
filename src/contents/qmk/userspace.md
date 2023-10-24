@@ -12,10 +12,11 @@ ogImage: ""
 
 *Any code/explanation in here may not be updated with the current state of my repo whenever you read this, bear that in mind. However, file names/location shouldn't change much and should be easy to find. Code-wise, chances are stuff is added without removing (**but perhaps moving**) the functionality explained here.*
 
-If you are reading this, you probably know already, but just in case: The code can be found at the `pekelop` branch of my fork [here](https://github.com/elpekenin/qmk_firmware/tree/pekelop/users/elpekenin)
+If you are reading this, you probably know already, but code using these features can be found on my [qmk_build](https://github.com/elpekenin/qmk_build) repository.
+  * Most stuff is under `users/elpekenin`
+  * See `access.json` to see how the compilation of my code is setup (`src` contains the source for my custom build-tool)
 
-Code using these features can be found at the userspace itself, my [custom keyboard](https://github.com/elpekenin/qmk_firmware/tree/pekelop/keyboards/elpekenin/access) and my [keymap](https://github.com/elpekenin/qmk_firmware/tree/pekelop/keyboards/elpekenin/access/keymaps/elpekenin) for it
-
+## *Last update: 24-Oct-2023*
 ---
 
 # Index
@@ -25,21 +26,23 @@ Code using these features can be found at the userspace itself, my [custom keybo
 ### All assets available dynamically
 See [here](#2-auto-include-assets-qp_resourcesh)
 
-### Macros
-`load_display`, `load_font` and `load_image` which:
-  * Load fonts/images into RAM, using QP's API
-  * Save the resources on arrays, to programatically access them
-    * `qp_devices_pekenin` (avoid name collision with `qp_internal.c`)
-    * `qp_fonts`
-    * `qp_images`
-  * Print (if QP_DEBUG is enabled) the name of the asset being loaded.
+### Dynamically access resources (instead of variables)
+  * API for loading (`load_display`, `load_font` and `load_image`) will:
+    * Load fonts/images into RAM, using QP's API (`qp_load_*_mem`)
+    * Save these resources on arrays, to later access them
+      * `qp_devices_pekenin` (avoid name collision with `qp_internal.c`)
+      * `qp_fonts`
+      * `qp_images`
+    * Print (if QP_DEBUG is enabled) the name of the asset being loaded.
+      <div style="padding-left:30px" /> Eg: "Loading ili9163 at position [0]"
+  * API for information (`num_displays`, `num_fonts` and `num_imgs`)
+  * No API for getting them, just use `qp_fonts[0]` or the like.
 
-     <div style="padding-left:30px" /> Eg: "Loading ili9163 at position [0]"
 
 ### Scrolling text API ✨
 Using `defer_exec` to draw moving strings, similar to `qp_animate`. 
 
-🔴Uses `malloc`, `realloc` and `free`🔴 to keep a copy of the string, because original text could be dropped while this is running.
+🔴Uses `malloc`, `realloc` and `free`🔴
 
 **<u>Note</u>:** The state (`scrolling_text_state_t`) contains the amount of spaces to draw before repeating the string, this is currently not part of the API and gets a hardcoded value on the function's body.
 
@@ -53,7 +56,7 @@ Using `defer_exec` to draw moving strings, similar to `qp_animate`.
   ``` 
   * Make a task's text longer (mainly meant for drawing long strings over XAP):
   ```c
-  void stop_scrolling_text(deferred_token scrolling_token);
+  void extend_scrolling_text(deferred_token scrolling_token, const char *str);
   ```
   * Cancel a running task
   ```c
@@ -72,15 +75,21 @@ There are some other functionalities here:
   void draw_features(painter_device_t device);
   ```
   
-These last two functions will show latest information when called from slave side (without needing a reflash) using [data sync](#user_transactionsh) 
+These last two functions will show latest information on slave side (without reflashing it) thanks to [data sync](#user_transactionsh) 
    
 Output:
   
   ![](/content-images/qmk/features_draw.png)
 
-## `print` on your screens: `qp_logging.h`
-Again, based on @tzarc's work, this replaces the built-in function called by `print` to render each `char`. On this tweaked version, we maintain the default send-over-USB behaviour, but also keep track of it on a buffer to then draw on a display. I extended his work allowing longer lines to be stored and drawing them (when needed) with my [`scrolling API`](#scrolling-text-api-✨)
+## Custom `print` implementation: `user_logging.h`
+Inspired on @tzarc's work, this replaces the function called by `print` to render each `char` with a custom implementation.
 
+On this tweaked version:
+  * If QP is enabled, we keep track of logging messages on a buffer to then draw them on a display. I extended @tzarc's work allowing longer lines to be stored and drawing them (when needed) with my [`scrolling API`](#scrolling-text-api-✨)
+  * If XAP is enabled, send logging over it. [XAP's Log specification](https://github.com/qmk/qmk_firmware/blob/xap/docs/xap_0.3.0.md#log-message---0x00)
+  * Maintain the implementation provided by QMK (`sendchar`) which will be a no-op or Console endpoint if said feature is enabled.
+
+### Logging on screen (`qp_logging.h`)
 The actual drawing takes place on `graphics.c`, this file simply keeps track of the text.
 
 Usage:
@@ -89,14 +98,14 @@ Usage:
   #define LOG_N_LINES <Number>
   #define LOG_N_CHARS <Number>
   ```
-  1. Determine the screen where to draw
+  2. Determine the screen where to draw
   ```c
   qp_log_target_device = <your_device>;
   ```
   
 
 ## QGF-converted database (and scripts)
-If you want some pre-converted QGF images, I have a collection of Material Design Icons (and the scripts to generate them from folders) in [this repo](https://github.com/elpekenin/mdi-icons-qgf)
+If you want some pre-converted QGF images, I have a collection of Material Design Icons (and the scripts to mass-convert folders) in [this repo](https://github.com/elpekenin/mdi-icons-qgf)
 
 ---
 
@@ -125,18 +134,20 @@ Helper functions to send information about some events to the XAP client, such a
 # Codegen
 Generate **C** code from **Python** scripts that get run during compilation.
 
+These features are not (yet?) configured via `rules.mk`, thus can't easily be disabled (you'd need to tweak the Makefile yourself).
+
 ## 1. Enabled features: `features.py`
 Defines `enabled_features_t` which is a struct containing whether some features are enabled on this compilation or not.
 
 Usage:
   1. Tweak its configuration (if you want to) at the very top of the script
     * Add or remove elements from `FEATURES` to modify which of them are tracked
-    * Use `SHORT_NAMES` to define aliases (these are only used on the `draw_features` function, not on the `struct`'s attributes names)
+    * Use `SHORT_NAMES` to define aliases. Note: These are only used on the `draw_features` function, not on the `struct`'s attributes names
   2. Read the state
   ```c
   enabled_features_t get_enabled_features(void);
   ```
-  3. Check a particular feature (note: all names are `lower_snake_case`)
+  3. Check a particular feature. Note: all names are `lower_snake_case`.
   ```c
   if (features.rgb_matrix) {
       printf("RGB Matrix is enabled!\n");
@@ -146,10 +157,19 @@ Usage:
 ## 2. Auto-include assets: `qp_resources.py`
 Creates:
   * `generated_qp_resources.h`, header that `#include`'s all QGF/QFF files found, and gets `#include`'d by `graphics.h`
-  * `generated_qp_resouces.c`, defines `load_qp_resources` that calls `load_font` and `load_image` [macros](#macros) on every asset found
+  * `generated_qp_resouces.c`, defines `load_qp_resources` which calls `load_font` and `load_image` [macros](#macros) on every asset found
   * `generated_qp_resources.mk` which has the `SRC +=` lines for them
 
-Usage: Code will locate your files at `painter/fonts` and `painter/images` on the keyboard, keymap, and userspace folders. No need to configure anything (can't be disabled either)
+Usage: Code will locate your files at `painter/fonts` and `painter/images` on the keyboard, keymap, and userspace folders. No need to configure anything
+
+## 3. Keycode names: `keycode_str.py`
+⚠️ Does not currently support `.json` keymaps
+
+Parses your keymap file (based on `KEYMAP_PATH` variable), finding the keycodes you've mapped on your layers, providing:
+```c
+const char *get_keycode_str_at(uint8_t layer, uint8_t row, uint8_t col)
+``` 
+Which will return `"KC_A"` for the positon where you had `KC_A` and so on. I.e. stringification of the keymap contents.
 
 ---
 
@@ -273,63 +293,18 @@ void transactions_init(void);
 ---
 
 # Keylogger: `user_keylog.h`
-Inspired by @drashna's code, and the `gboard` combo management, this file uses some pre-processor magic to stringify the keymap's content and get the string representation of each key. It also provides functions and macros to replace strings, eg: `"KC_SPC"` -> `" "`, this supports unicode too!!
+Inspired by @drashna's code, this provides a way of storing/showing recent presses as a string. Obviously, depends on [`get_keycode_str_at`](#3-keycode-names-keycode_strpy)
 
 Usage:
-  1. Move your content to a new file, `layers.h`, which will be processed ***magically***
-
-  For example
-  ```c
-  const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      [_BASE] = LAYOUT(KC_A, KC_B)
-  };
-  ```
-  Would become
-  ```c
-  // layers.h
-  // --------
-  // note: in the same way as LAYOUT macro, the newlines/whitespaces dont matter
-  LAYER(_BASE,
-      KC_A, KC_B
-  )
-
-  // keymap.c
-  // --------
-  // i know this is gross ...
-  #undef LAYER
-  #define LAYER(layer_name, ...) [layer_name] = LAYOUT(__VA_ARGS__),
-  //              may need another name here    ^^^^^^
-  const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      #include KEYMAP_LAYERS_H
-  };
-  ```
-
-  2. In that same file, add a dummy layer which will be used to map row/col positions to the order in which you write the keys in the macro (and vice-versa)
-
-  For our example, that would be: 
-  ```c
-  // beware, counting starts at 1
-  __DUMMY_LAYER(1, 2) 
-  ```
-
-  3. Configure the `KEYMAP_LAYERS_H` variable, used to locate the `layers.h` file. For me this was it:
+  1. Enable it
   ```makefile
   # rules.mk
   # --------
-  # this is a makefile variable
-  KEYMAP_LAYERS_H = keyboards/elpekenin/access/keymaps/elpekenin/layers.h
-
-  # this is an equivalent pre-processor macro/define
-  OPT_DEFS += -DKEYMAP_LAYERS_H=\"$(KEYMAP_LAYERS_H)\"
+  KEYLOG_ENABLE = yes
   ```
 
-  4. You can now get the name of a particular keycode with
-  ```c
-  char *get_keycode_str_at(uint8_t layer_num, uint8_t row, uint8_t column);
-  ```
-
-  5. With that function, you can do any processing after a key is pressed/released.
-     - Functios to pretify string (original isn't modified, the pointer is now looking somewhere else)
+  2. `keylog_process` will be called for processing after a key is pressed/released. APIs on this file for
+     - "Prettifying" string (original isn't modified, the pointer is now looking somewhere else)
      ```c
      // eg a pointer to "KC_A" would now point to "A"
      void remove_prefixes(char **str);
@@ -349,7 +324,7 @@ Usage:
      void apply_casing(char **str);
      ```
 
-     - Functions to update the log (buffer)
+     - Updating the log (buffer)
      ```c
      void keylog_clear(void);
 
@@ -361,16 +336,13 @@ Usage:
 
      ```
 
-     - Handle key events
-     ```c
-     void keylog_process(uint16_t keycode, keyrecord_t *record);
-     ```
-
-  6. My code will also change the log's color based on WPM(if enabled), you can tweak the colors (or completely get rid of them) and the WPM values at which they change by editing `graphics.c`. I didn't setup any `#define` for this 
+  3. My code will also change the log's color based on WPM(if enabled), you can tweak the colors (or completely get rid of them) and the WPM values at which they change by editing `graphics.c`. I didn't setup any `#define` for this 
 
 Congratz!
 ![](/content-images/qmk/keylog.jpg)
 
+
+TODO: `user_rgb_matrix_indicators` documentation
 
 <!-- # One Hand Mode (**abandoned right now**)
 The goal for this feature is to add a new *RGB Matrix* animation which only lights a single LED, used as a "marker" so that you can then virtually press the selected key. This will allow for accessibility, because the direction in which the LED moves and the trigger of the press is completely customizable (code does just the bare minimum), thus you can change which events trigger moving around and pressing, eg using different pointing devices, or a set of keys(arrows).
