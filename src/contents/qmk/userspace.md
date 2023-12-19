@@ -12,34 +12,94 @@ ogImage: ""
 
 *Bear in mind, any code/explanation here may not be up to date with the current state of my repo when reading this. However, filenames and locations shouldn't change much and should remain easy to find. New functionality will be added but may not be documented, things explained below (most likely) won't be removed but chances are they get moved around, though.*
 
-If you are reading this, you probably know already, but code using these features can be found on my [qmk_build](https://github.com/elpekenin/qmk_build) repository.
-  * Most stuff is under `users/elpekenin`
-  * See `access.json` to see how the compilation of my code is setup (`src` contains the source for my custom build-tool)
+If you are reading this, you probably know already, but code using these features can be found on my [keyboard](https://github.com/elpekenin/access_kb) repository.
+  * Under the `firmware` folder
+  * See `build.json` to see how the compilation of my code is setup (`src` contains the source for my custom build-tool)
+    * The compilation works using a custom tool of mine: [qmk_build](https://github.com/elpekenin/qmk_build)
+  * Code can be found at `users/elpekenin` (very minimal stuff on `keyboards/elpekenin/access/keymaps/elpekenin`)
+    * Actual code on `src`, and headers under `include`. Both these folders have a (imo) very intuitive layout, so it should be easy navitagin through them
+    * Makefiles on `mk` (check `rules.mk` to see the overall build process)
+    * Python code to code-gen some C at compile time at `scripts`
+    * `painter` contains some assets(fonts, images) to be used on screens
 
-## *Last update: 24-Oct-2023*
+## *Last update: 19-Dec-2023*
 ---
 
 # Index
 
-# Quantum Painter (from now on, "*QP*")
-## Drawing, and some helpers: `graphics.h`
+# Custom logging (`elpekenin/logging.h`)
+Made a "framework" inspired by Python's `logging` module
+
+It defines several message levels:
+  * `LOG_NONE`
+  * `LOG_TRACE`
+  * `LOG_DEBUG`
+  * `LOG_INFO`
+  * `LOG_WARN`
+  * `LOG_ERROR`
+
+And features to be logged:
+  * `UNKNOWN` - fallback for anything not listed underneath
+  * `LOGGER`
+  * `QP`
+  * `SCROLL_TXT`
+  * `SIPO`
+  * `SPLIT`
+  * `SPI`
+  * `TOUCH`
+  * `HASH`
+
+Such that messages can be logged with:
+```c
+void logging(feature_t feature, log_level_t level, const char *msg, ...);
+```
+
+Furthermore, every message is logged with a custom format (which you can change at runtime). The available specifiers are:
+  * `%F` - Name of the feature that raised the message, eg: `SPLIT`
+  * `%LL` - Message's level (long), eg: `TRACE`
+  * `%LS` - Message's level (short), eg: `T`
+  * `%M` - Actual message (will be formatted from `msg` and `...`, as you would expect from `printf`)
+  * `%T` - Current time (`char *log_time(void);` is implemented weakly)
+
+For example, a format of `"[%F] (%LL) -- %M | %T"` would yield messages like:
+```
+[SPLIT] (TRACE) -- Hello world | 3s
+```
+
+You can get/set the current level for each feature, eg: to enable/silence certain messages after something goes right/wrong.
+
+---
+
+All of this machinery is just a fancy wrapper to call `printf` under the hood.
+
+`printf` itself is also hacked, such that its "backend"(how each `char` is printed) does:
+  * IF QP is enabled, draw text on a [screen](#logging-on-screen-loggingbackendsqph)
+  * If XAP is enabled, send logging over it. [XAP's Log specification](https://github.com/qmk/qmk_firmware/blob/xap/docs/xap_0.3.0.md#log-message---0x00)
+  * When `printf` is called from the slave half of a split keyboard, it gets send to master (to be able to see it thru USB) over custom communication
+  * Keeps the implementation provided by QMK (`sendchar`) which will either be a no-op or console's endpoint
+
+# Utils
+Various functions that may be useful to reuse across different files. The most relevant stuff here are a couple of string-manipulation functions and a fairly limited hash-map implementation
+
+# Quantum Painter, QP for short (`elpekenin/painter/`)
+You may want to read the feature's [documentation](https://docs.qmk.fm/#/quantum_painter) first
+
+## Drawing, and some helpers (`elpekenin/painter/graphics.h`)
 ### All assets available dynamically
 See [here](#2-auto-include-assets-qp_resourcesh)
 
 ### Programmatic access to resources (instead of variables)
-  * API for loading (`load_display`, `load_font` and `load_image`) will:
-    * Load fonts/images into RAM, using QP's API (`qp_load_*_mem`)
-    * Save these resources into arrays
-      * `qp_devices_pekenin` (avoid name collision with `qp_internal.c`)
-      * `qp_fonts`
-      * `qp_images`
-    * Print (if QP_DEBUG is enabled) the name of the asset being loaded.
+  * Loading (`load_display`, `load_font` and `load_image`) will:
+    * Get fonts/images into RAM, using QP's API (`qp_load_*_mem`)
+    * Log the name of and index the asset being loaded.
       <div style="padding-left:30px" /> Eg: "Loading ili9163 at position [0]"
-  * API for information (`num_displays`, `num_fonts` and `num_imgs`)
-  * No API for getting them, just use `qp_fonts[0]` or the like.
+  * You can later get these resources with
+    * `qp_get_<resource>_by_index`
+    * `qp_get_<resource>_by_name`
+      * Note: Names are stringifications of variable names, you might use "private" loading API instead (`_load_<resource>`)
+    * There's also `qp_get_num_<resouces>` in case it might be needed in the future
 
-
-### Scrolling text API ✨
+### Scrolling text API ✨ (`elpekenin/painter/graphics.c`)
 <span style="margin-right: 30%"></span>🔴Uses `malloc`, `realloc` and `free`🔴
 
 Using `defer_exec` to draw moving strings, similar to `qp_animate`. 
@@ -63,7 +123,7 @@ Using `defer_exec` to draw moving strings, similar to `qp_animate`.
   void stop_scrolling_text(deferred_token scrolling_token);
   ```
 
-### Small drawing functions
+### Small drawing functions (`elpekenin/painter/graphics.c`)
 There are some other functionalities here:
   - Small code to compute days, hours, minutes, seconds from `timer_read32` and drawing them on a screen (not broken into a function)
   - This function does what its name suggests, based on [#19542](https://github.com/qmk/qmk_firmware/pull/19542)
@@ -81,16 +141,12 @@ Output:
   
   ![](/content-images/qmk/features_draw.png)
 
-## Custom `print` implementation: `user_logging.h`
-Inspired on @tzarc's work, this replaces the function called by `print` to render each `char` with a custom implementation.
+## Logging on screen (`logging/backends/qp.h`)
+Inspired on @tzarc's work, this extends the function called by `print` to render each `char` with a custom implementation.
 
-On this tweaked version:
-  * If QP is enabled, we keep track of logging messages on a buffer to then draw them on a display. I extended @tzarc's functionality by allowing longer lines to be stored and drawing them (when needed) with my [`scrolling texts API`](#scrolling-text-api-✨)
-  * If XAP is enabled, send logging over it. [XAP's Log specification](https://github.com/qmk/qmk_firmware/blob/xap/docs/xap_0.3.0.md#log-message---0x00)
-  * Maintain the implementation provided by QMK (`sendchar`) which will be a no-op or Console endpoint if said feature is enabled.
+We keep track of logging messages on a buffer to then draw them on a display. I extended @tzarc's functionality by allowing longer lines to be stored and drawing them (when needed) with my [`scrolling texts API`](#scrolling-text-api-✨)
 
-### Logging on screen (`qp_logging.h`)
-The actual drawing takes place on `graphics.c`, this file simply keeps track of the text.
+A task on `elpekenin.c` takes care to periodically call the `render` function in order to re-draw when needed.
 
 Usage:
   1. Configure the buffer size (or don't, and fallback to my default values)
@@ -98,9 +154,9 @@ Usage:
   #define LOG_N_LINES <Number>
   #define LOG_N_CHARS <Number>
   ```
-  2. Determine the screen where to draw
+  1. Determine the screen where to draw
   ```c
-  qp_log_target_device = <your_device>;
+  set_qp_logging_device(display);
   ```
   
 
@@ -113,7 +169,7 @@ If you want some pre-converted QGF images, I have a collection of Material Desig
 
 In case you haven't heard of it, this is a Work In Progress feature aimed for bidirectional communication between your keyboard and PC, you can track it on [PR#13733](https://github.com/qmk/qmk_firmware/pull/13733), and its documentation can be found on that same branch (`xap`) of the repo, under the `docs` folder.
 
-## Draw from the PC: `qp_over_xap.h`
+## Draw from the PC (`elpekenin/painter/xap.c`)
 XAP bindings that expose display-related functions over XAP.
 
 Messages' definition can be found at `xap.hjson`
@@ -129,7 +185,7 @@ Usage:
   3. Code relies on having the assets in the arrays mentioned on [Quantum Painter - Macros](#macros)
   4. Send XAP messages from PC to execute this code. [Here](https://github.com/elpekenin/qmk_xap) is my fork of [qmk_xap](https://github.com/qmk/qmk_xap) (which is official QMK's XAP client)
 
-## Send info to the PC: `user_xap.h`
+## Send info to the PC (`elpekenin/xap.h`)
 Helper functions to send information about some events to the XAP client, such as:
   * Rebooting the board or jumping to bootloader
   * Key events (presses/released) which could be used to make usage stats
@@ -137,12 +193,12 @@ Helper functions to send information about some events to the XAP client, such a
 
 ---
 
-# Codegen
+# Codegen (`scripts/`)
 Generate **C** code from **Python** scripts that get run during compilation.
 
-These features are not (yet?) configured via `rules.mk`, thus can't easily be disabled (you'd need to tweak the Makefile yourself).
+Some of these features are not configured via `rules.mk`, thus can't easily be disabled (you'd need to tweak the Makefile yourself).
 
-## 1. Enabled features: `features.py`
+## 1. Enabled features: `scripts/features.py`
 Defines `enabled_features_t` which is a struct containing whether some features are enabled on this compilation or not.
 
 Usage:
@@ -160,7 +216,7 @@ Usage:
   }
   ```
 
-## 2. Auto-include assets: `qp_resources.py`
+## 2. Auto-include assets: `scripts/qp_resources.py`
 Creates:
   * `generated_qp_resources.h`, header that `#include`'s all QGF/QFF files found, and gets `#include`'d by `graphics.h`
   * `generated_qp_resouces.c`, defines `load_qp_resources` which calls `load_font` and `load_image` [macros](#macros) on every asset found
@@ -168,7 +224,7 @@ Creates:
 
 Usage: Code will locate your files at `painter/fonts` and `painter/images` on the keyboard, keymap, and userspace folders. No need to configure anything
 
-## 3. Keycode names: `keycode_str.py`
+## 3. Keycode names: `scripts/keycode_str.py`
 ⚠️ Does not currently support `.json` keymaps
 
 Parses your keymap file (based on `KEYMAP_PATH` variable), finding the keycodes you've mapped on your layers, providing:
@@ -179,7 +235,7 @@ Which will return `"KC_A"` for the positon where you had `KC_A` and so on. I.e. 
 
 ---
 
-# Touchscreens: `touch_driver.h`
+# Touchscreens (`elpekenin/touch.h`)
 Custom code to interact with my XPT2046-based touchscreen modules, the code is designed such that other SPI sensors should be somewhat easy to integrate. 
 
 This code does the bare minimum, **reads the sensor**.
@@ -236,12 +292,12 @@ Usage:
 
 ---
 
-# Multi-bus SPI: `custom_spi_master.h`
+# Multi-bus SPI (`elpekenin/spi_custom.h`)
 "Small" changes to QMK's built-in SPI driver (abstractions over `ChibiOS`'s functions), so that we can use multiple SPI instances at the same time.
 
 ---
 
-# "Virtual pins" to control several signals: `sipo_pins.h`
+# "Virtual pins" to control several signals (`elpekenin/sipo.h`)
 A set of macros and functions that allow using SerialIn-ParallelOut shift registers (supports daisy chaining) to control several "virtual GPIO". With this, you can generate an arbitrary amount of output signals using 3 GPIOs on the MCU (SCK, MOSI, CS).
 
 My use-case for this is driving a multi-screen setup with fewer pins. This requires:
@@ -282,23 +338,12 @@ Usage:
 
 ---
 
-# Split messaging: `user_transactions.h`
-Sends a `user_data_t` struct over split comms, to sync **some** information/configuration without needing to reflash slave side 
-```c
-// gets called upon receiving a message on slave side, to store its content
-void user_data_sync_slave(uint8_t m2s_size, const void* m2s_buffer, uint8_t s2m_size, void* s2m_buffer);
-// you can also define this, to run extra logic on receptions
-void user_data_sync_keymap_callback(void);
+# Split messaging (`elpekenin/split/transactions.h`)
+A couple of custom transactions, with a `init` function to schedule some "workers" that periodically execute them.
 
-// sends messages to slave periodically
-void split_sync_housekeeping(uint32_t now);
-
-// configuration needed for transactions
-void transactions_init(void);
-```
 ---
 
-# Keylogger: `user_keylog.h`
+# Keylogger (`elpekenin/keylog.h`)
 Inspired by @drashna's code, this provides a way of storing/showing recent presses as a string. Obviously, depends on [`get_keycode_str_at`](#3-keycode-names-keycode_strpy)
 
 Usage:
@@ -309,38 +354,7 @@ Usage:
   KEYLOG_ENABLE = yes
   ```
 
-  2. `keylog_process` will be called for processing after a key is pressed/released. APIs on this file for
-     - "Prettifying" string (original isn't modified, the pointer is now looking somewhere else)
-     ```c
-     // eg a pointer to "KC_A" would now point to "A"
-     void remove_prefixes(char **str);
-
-     // eg change "KC_LEFT" becomes "←"
-     void replace_symbols(char **str);
-     // iterates over an array of
-     #define REPLACE(<input>, <output>)
-
-     // same, but for shifted symbols
-     void replace_mods(char **str);
-     #define MOD_REPLACE(<input>, <output>, <mod_mask>)
-     #define REPLACE_ALGR(<input>, <output>)
-     #define REPLACE_SFT(<input>, <output>)
-
-     // convert to lowercase based on caps and shift
-     void apply_casing(char **str);
-     ```
-
-     - Updating the log (buffer)
-     ```c
-     void keylog_clear(void);
-
-     // clear last element, aka: when backspace
-     void keylog_shift_right(void);
-
-     // add an element to the end
-     void keylog_append(char *str);
-
-     ```
+  2. `keylog_process` will be called for processing after a key is pressed/released. You can define some "prettifying" replacements (pointer gets redirected to another address, original isn't changed).
 
   3. My code will also change the log's color based on WPM(if enabled), you can tweak the colors (or completely get rid of them) and the WPM values at which they change by editing `graphics.c`. I didn't setup any `#define` for this 
 
@@ -348,10 +362,6 @@ Congratz!
 ![](/content-images/qmk/keylog.jpg)
 
 
-TODO: `user_rgb_matrix_indicators` documentation
-
-<!-- # One Hand Mode (**abandoned right now**)
-The goal for this feature is to add a new *RGB Matrix* animation which only lights a single LED, used as a "marker" so that you can then virtually press the selected key. This will allow for accessibility, because the direction in which the LED moves and the trigger of the press is completely customizable (code does just the bare minimum), thus you can change which events trigger moving around and pressing, eg using different pointing devices, or a set of keys(arrows).
-
-Usage:
- - Add `ONE_HAND = yes` to your **rules.mk** -->
+# TODO's
+  * `user_rgb_matrix_indicators` documentation
+  * ? `hash_map` documentation
